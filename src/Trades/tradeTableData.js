@@ -5,7 +5,8 @@ import Pagination from './Pagination';
 import _ from "lodash";
  
 import "bootstrap/dist/css/bootstrap.css";
-import "font-awesome/css/font-awesome.css";
+ 
+
 
 export default class TradeTableData extends Component {
 
@@ -13,7 +14,7 @@ export default class TradeTableData extends Component {
         super(props);
         this.state = {
          currentPage:1,
-         pageSize:2,
+         pageSize:5,
             pageOfItems: [],
             tradesList:[]
         };
@@ -22,16 +23,7 @@ export default class TradeTableData extends Component {
         this.onPageChange = this.onPageChange.bind(this);
         
     }
-    //{"uuid":"20e31aef-b718-46a5-a7ee-77982e093786",
-    //"updatedAt":1526397461000,"volume":"8.72005",
-    //"price":"4874.44","side":"ASK",
-    //"tradingPair":{"uuid":"c5229898-0afe-4b87-87e0-de451f6c1f30","symbol":"ETH/AUD"}}
-
-
-    ///this function does paginantion  
-   // getDerivedStateFromProps(props,state){
-   //  state.tradesList=props.tradesList;
-    //}
+    
 
     onPageChange(pageOfItems) {
         // update state with new page of items
@@ -43,11 +35,9 @@ export default class TradeTableData extends Component {
         const start = (this.state.currentPage-1)*this.state.pageSize;
         const End = this.state.pageSize*this.state.currentPage;
         console.log(start+"------"+End);
-     //const tradesList = this.props.tradesList.slice(start).take(this.state.pageSize).value();
-     //const data = this.props.tradesList;
+     
     let tradesList = this.props.tradesList.slice(start,End);
-    // const test = Object.assign({},this.props.tradesList);
-    // const tradesList = _.test.slice(start).take(thi)
+  
 
 console.log(tradesList)
         console.log(tradesList);
@@ -58,10 +48,11 @@ console.log(tradesList)
                 <thead>
                     <tr>
                         <th>uuid</th>
-                        <th onClick={()=> this.props.sortBy("updatedAt")}  >     
-                        <a href="#">updatedAt
-          <span className="glyphicon glyphicon-sort-by-attributes"></span>
-        </a>
+                        <th onClick={()=> this.props.sortBy("updatedAt")}  >    
+                        <span class="glyphicon glyphicon-triangle-bottom"></span>
+                        <i className="fa fa-fw fa-sort"></i>
+                       updatedAt 
+        
                      </th>
                         <th onClick={()=> this.props.sortBy("price")}>price</th>
                         <th onClick={()=> this.props.sortBy("volume")}>volume</th>
@@ -71,7 +62,6 @@ console.log(tradesList)
                     </tr>
                 </thead>
                 <tbody>
-                    
                     {
                         tradesList.map(obj => (
                         <TradeDataRows key={obj.uuid} tradeRow={obj} />
